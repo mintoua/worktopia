@@ -4,6 +4,7 @@ import com.logonedigital.worktopia.exception.RessourceExistException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -40,8 +41,16 @@ public class TrainingService {
     }
 
 
-
     private boolean trainingExists(String title, String level) {
         return trainingRepository.existsByTitleAndLevel(title, level);
+    }
+
+    public List<TrainingDTO> getAll() {
+
+        List<Training> trainingList = trainingRepository.findAll();
+        return trainingList
+                .stream()
+                .map(TrainingDTO::trainingDTO)
+                .toList();
     }
 }
