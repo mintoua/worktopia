@@ -5,18 +5,21 @@ import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @RequiredArgsConstructor
+
 @RequestMapping("/employees")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
+
+    @GetMapping()
+    public String employees(){
+        return "All Employees";
+    }
 
     @PostMapping("/save")
     public ResponseEntity<ApiResponse> save(
