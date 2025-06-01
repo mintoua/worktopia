@@ -1,23 +1,40 @@
 package com.logonedigital.worktopia.formation;
 
+import java.util.Date;
+
 public record TrainingRequest(
-         String title,
-         String description,
-         Integer numberOfPlaces,
-         String level,
-         String skills,
-         Integer durationInHours,
-         TrainingCategory trainingCategory
+        String title,
+        String description,
+        Integer durationInDay,
+        Integer durationInHours,
+        String level,
+        Date dateDebut,
+        String location,
+        String periode,
+        Integer numberOfPlaces,
+        String fichierFacultatif,
+        Integer coutFormation,
+        String budgetImpute,
+        boolean inscriptionOuverte,
+         TrainingCategory trainingCategory,
+         Formateur formateur
+
 ) {
     public static Training of(TrainingRequest request) {
         Training training = new Training();
         training.setTitle(request.title());
         training.setDescription(request.description());
-        training.setNumberOfPlaces(request.numberOfPlaces());
-        training.setLevel(request.level());
-        training.setSkills(request.skills());
+        training.setDurationInDay(request.durationInDay());
         training.setDurationInHours(request.durationInHours());
+        training.setDateDebut(request.dateDebut());
+        training.setLocation(request.location());
+        training.setNumberOfPlaces(request.numberOfPlaces());
+        training.setFichierFacultatif(request.fichierFacultatif());
+        training.setCoutFormation(request.coutFormation());
+        training.setBudgetImpute(request.budgetImpute());
+        training.setInscriptionOuverte(request.inscriptionOuverte());
         training.setCategory(request.trainingCategory());
+        training.setFormateur(request.formateur());
 
 /*        Training training1 =  Training.builder()
                 .title(request.title())
@@ -32,9 +49,23 @@ public record TrainingRequest(
     }
 
 
-    public void withCategory(TrainingCategory trainingCategory) {
+    public void withCategory(TrainingCategory trainingCategory, Formateur formateur) {
         new TrainingRequest(
-                title, description, numberOfPlaces, level, skills, durationInHours, trainingCategory
+                title,
+                description,
+                durationInDay,
+                durationInHours,
+                level,
+                dateDebut,
+                location,
+                periode,
+                numberOfPlaces,
+                fichierFacultatif,
+                coutFormation,
+                budgetImpute,
+                inscriptionOuverte,
+                trainingCategory,
+                formateur
         );
     }
 

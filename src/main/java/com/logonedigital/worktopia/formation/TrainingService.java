@@ -13,9 +13,11 @@ public class TrainingService {
 
     private final TrainingRepository trainingRepository;
     private final TrainingCategoryRepository trainingCategoryRepository;
-    public TrainingService(TrainingRepository trainingRepository, TrainingCategoryRepository trainingCategoryRepository) {
+    private final FormateurRepository formateurRepository;
+    public TrainingService(TrainingRepository trainingRepository, TrainingCategoryRepository trainingCategoryRepository, FormateurRepository formateurRepository) {
         this.trainingRepository = trainingRepository;
         this.trainingCategoryRepository = trainingCategoryRepository;
+        this.formateurRepository = formateurRepository;
     }
 
 
@@ -35,7 +37,23 @@ public class TrainingService {
                         }
                 );
 
-        request.withCategory(trainingCategory);
+        //Check if a category exists else save
+        Formateur formateur = Optional.ofNullable(
+                        this.formateurRepository.findByNomFormateur(request.formateur().getNomFormateur()))
+                .orElseGet(
+                        ()->{
+                            Formateur newFormateur = new Formateur(
+                                    request.formateur().getNomFormateur(),
+                                    request.formateur().getTelephoneFormateur(),
+                                    request.formateur().getEmailFormateur(),
+                                    request.formateur().getTypeFormateur()
+                                    );
+
+                            return formateurRepository.save(newFormateur);
+                        }
+                );
+
+        request.withCategory(trainingCategory, formateur);
         Training trainingToSave = TrainingRequest.of(request);
         return this.trainingRepository.save(trainingToSave).getPublicId();
     }

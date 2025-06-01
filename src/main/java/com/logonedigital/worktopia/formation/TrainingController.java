@@ -15,14 +15,11 @@ public class TrainingController {
     private final TrainingService trainingService;
 
     @PostMapping("/save")
-    public ResponseEntity<ApiResponse> save(
-            @RequestBody @Valid TrainingRequest request)
-    {
-        return ResponseEntity.ok(
-                new ApiResponse(
-                        "Saved successfully",
-                        "PublicId: " + trainingService.save(request))
-        );
+    public ResponseEntity<String> save(@RequestBody @Valid TrainingRequest request){
+        this.trainingService.save(request);
+        return ResponseEntity
+                .status(200)
+                .body("Training saved successfully !");
     }
 
 

@@ -45,7 +45,7 @@ public class EmployeeService {
 
         var employeeToSave = EmployeeRequest.toEmployee(request);
         employeeToSave.setUser(savedUser);
-        employeeToSave.setAvailability(Availability.ACTIF);
+//        employeeToSave.setAvailability(Availability.ACTIF);
 
         var saved = employeeRepository.save(employeeToSave);
         emailService.sendEmailToEmployee(saved.getEmail(),password);

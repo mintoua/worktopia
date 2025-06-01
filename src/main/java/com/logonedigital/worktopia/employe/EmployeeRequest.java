@@ -3,6 +3,8 @@ package com.logonedigital.worktopia.employe;
 import jakarta.validation.constraints.*;
 import lombok.Builder;
 
+import java.util.Date;
+
 @Builder
 public record EmployeeRequest(
         @NotEmpty(message = "Firstname is mandatory")
@@ -25,10 +27,15 @@ public record EmployeeRequest(
         @NotNull(message = "Department is mandatory")
 /*        @Pattern(regexp = "^(FINANCE|SOFTWARE|MARKETING)$", message = "Department must be FINANCE, SOFTWARE or MARKETING")*/
         Department department,
-
+          String  dateofbirth,
+        String manager,
+        Date dateembauche,
+        String typecontrat,
+         long salairebrut,
+        String iban,
         @NotNull(message = "Gender is mandatory")
 /*        @Pattern(regexp = "^(MALE|FEMALE)$", message = "Gender must be either MALE or FEMALE")*/
-        Gender gender
+        String gender
 ) {
 
     public static EmployeeRequest of(Employee employee) {
@@ -42,6 +49,12 @@ public record EmployeeRequest(
                 .phone(employee.getPhone())
                 .address(employee.getAddress())
                 .gender(employee.getGender())
+                .dateofbirth(employee.getDateofbirth())
+                .dateembauche(employee.getDateembauche())
+                .manager(employee.getManager())
+                .typecontrat(employee.getTypecontrat())
+                .salairebrut(employee.getSalairebrut())
+                .iban(employee.getIban())
                 .build();
     }
     
@@ -55,6 +68,12 @@ public record EmployeeRequest(
                 .address(request.address())
                 .gender(request.gender())
                 .department(request.department())
+                .dateofbirth(request.dateofbirth())
+                .dateembauche(request.dateembauche())
+                .manager(request.manager())
+                .typecontrat(request.typecontrat())
+                .salairebrut(request.salairebrut())
+                .iban(request.iban())
                 .build();
     }
 }

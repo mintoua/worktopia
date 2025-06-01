@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -20,22 +21,22 @@ public class Employee extends BaseEntity {
 
     private String firstName;
     private String lastName;
-    @Column(nullable = false, unique = true)
     private String email;
-    @Column(nullable = false)
     private String position;
-    @Column(nullable = false)
     private String phone;
     private String address;
-    @Enumerated(EnumType.STRING)
     private Department department;
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
-    //Infos sur les profils
-    private String photoLink;
-    private String curriculumVitaeLink;
-    @Enumerated(EnumType.STRING)
-    private Availability availability;
+    private String gender;
+    private  String  dateofbirth;
+    private String manager;
+    private Date dateembauche;
+    private String typecontrat;
+    private long salairebrut;
+    private  String iban;
+    private String availability;
+
+
+
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     private User user;
     @OneToMany(mappedBy = "employee")
