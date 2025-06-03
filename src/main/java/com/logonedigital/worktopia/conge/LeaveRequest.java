@@ -23,7 +23,7 @@ public class LeaveRequest extends BaseEntity {
     @Column(columnDefinition = "text")
     private String motif;
     @Enumerated(EnumType.STRING)
-    private LeaveStatus status;
+    private LeaveStatus status = LeaveStatus.AWAITING; // EN_ATTENTE(AWAITING), APPROUVE(APPROVED), REJETE(REJECTED)
     @ManyToOne
     private Employee employee;
 

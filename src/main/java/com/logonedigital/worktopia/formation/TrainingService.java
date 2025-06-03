@@ -2,7 +2,6 @@ package com.logonedigital.worktopia.formation;
 
 import com.logonedigital.worktopia.exception.RessourceExistException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -68,7 +67,7 @@ public class TrainingService {
         List<Training> trainingList = trainingRepository.findAll();
         return trainingList
                 .stream()
-                .map(TrainingDTO::trainingDTO)
+                .map(TrainingDTO::from)
                 .toList();
     }
 }

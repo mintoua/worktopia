@@ -10,7 +10,7 @@ public record TrainingDTO(
 ) {
 
 
-    public static TrainingDTO trainingDTO(Training training) {
+    public static TrainingDTO from(Training training) {
 
         return TrainingDTO.builder()
                 .title(training.getTitle())

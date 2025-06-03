@@ -33,7 +33,7 @@ public class Employee extends BaseEntity {
     private String typecontrat;
     private long salairebrut;
     private  String iban;
-    private String availability;
+    private Availability availability;
 
 
 

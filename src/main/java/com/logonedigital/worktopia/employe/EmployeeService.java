@@ -10,7 +10,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
@@ -45,11 +47,20 @@ public class EmployeeService {
 
         var employeeToSave = EmployeeRequest.toEmployee(request);
         employeeToSave.setUser(savedUser);
-//        employeeToSave.setAvailability(Availability.ACTIF);
+        employeeToSave.setAvailability(Availability.ACTIF); //statut par défaut
 
         var saved = employeeRepository.save(employeeToSave);
         emailService.sendEmailToEmployee(saved.getEmail(),password);
     }
 
+
+    public List<EmployeeDTO> getAllEmployees() {
+
+        List<Employee> employees = employeeRepository.findAll();
+        return employees
+                .stream()
+                .map(EmployeeDTO::from)
+                .collect(Collectors.toList());
+    }
 
 }

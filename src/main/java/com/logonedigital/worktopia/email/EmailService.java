@@ -20,7 +20,7 @@ public class EmailService {
         this.mailSender = mailSender;
     }
 
-    public void sendEmailWithPaySlip(String receiverEmail, String paySlipPdf) throws MessagingException {
+    public void sendEmailWithPaySlipAttached(String receiverEmail, String paySlipPdf) throws MessagingException {
         MimeMessage message = this.mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         helper.setFrom("contact@logonedigital.com");
