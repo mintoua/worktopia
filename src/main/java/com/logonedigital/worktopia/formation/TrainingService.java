@@ -80,7 +80,7 @@ public class TrainingService {
     public TrainingDTO getById(UUID id) {
         Optional<Training> trainingOpt = trainingRepository.findById(id);
         if (trainingOpt.isPresent()) {
-            return TrainingDTO.trainingDTO(trainingOpt.get());
+            return TrainingDTO.from(trainingOpt.get());
         } else {
             throw new RessourceNonExistException("Training not found with id " + id);
         }
@@ -115,7 +115,7 @@ public class TrainingService {
             training.setCategory(trainingRequest.trainingCategory());
             training.setFormateur(trainingRequest.formateur());
             Training savedTraining = trainingRepository.saveAndFlush(training);
-            return TrainingDTO.trainingDTO(savedTraining);
+            return TrainingDTO.from(savedTraining);
         } else {
             throw new RessourceNonExistException("Training not found with id " + id);
         }
