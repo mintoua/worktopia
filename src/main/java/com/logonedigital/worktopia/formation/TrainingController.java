@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/trainings")
@@ -32,5 +34,24 @@ public class TrainingController {
                         trainingService.getAll()
                 )
         );
+    }
+
+
+    @GetMapping("/get_by_id/{id}")
+        public ResponseEntity<TrainingDTO> getById(UUID id){
+        return ResponseEntity.status(200).body(this.trainingService.getById(id));
+
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> upd(UUID id, TrainingRequest trainingRequest){
+        this.trainingService.update(id, trainingRequest);
+        return ResponseEntity.status(202).body("Updated sucessfully");
+    }
+
+    @PutMapping("/delete/{id}")
+    public ResponseEntity<String> deletbyId(UUID id){
+        this.trainingService.delete(id);
+        return ResponseEntity.status(202).body("Updated sucessfully");
     }
 }

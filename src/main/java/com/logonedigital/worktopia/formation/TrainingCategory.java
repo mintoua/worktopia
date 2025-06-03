@@ -1,5 +1,6 @@
 package com.logonedigital.worktopia.formation;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.logonedigital.worktopia.common.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -20,6 +21,8 @@ public class TrainingCategory extends BaseEntity {
     private String name;
     private String description;
 
+
+    @JsonIgnore
     @OneToMany(mappedBy = "category")
     private List<Training> trainings;
 

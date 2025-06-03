@@ -25,13 +25,15 @@ public class EmployeeController {
                          ""));
     }
 
+
+
     @GetMapping("/all")
     public ResponseEntity<ApiResponse> getAll()
     {
         return ResponseEntity.ok(
                 new ApiResponse(
-                        "All Employees Found",
-                        employeeService.getAllEmployees()
+                        "All Employess Found",
+                        employeeService.getAll()
                 )
         );
     }
