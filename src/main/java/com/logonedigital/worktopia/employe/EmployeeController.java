@@ -32,7 +32,7 @@ public class EmployeeController {
     {
         return ResponseEntity.ok(
                 new ApiResponse(
-                        "All Employess Found",
+                        "All Employees Found",
                         employeeService.getAll()
                 )
         );

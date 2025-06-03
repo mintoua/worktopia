@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
+
 
 @Service
 @Slf4j
@@ -51,7 +51,7 @@ public class EmployeeService {
         log.info("data {}", employeeToSave);
 
         employeeToSave.setUser(savedUser);
-        employeeToSave.setAvailability(Availability.ACTIF); //statut par défaut
+        employeeToSave.setAvailability("ACTIF"); //statut par défaut
 
         var saved = employeeRepository.save(employeeToSave);
        // emailService.sendEmailToEmployee(saved.getEmail(),password);
@@ -70,13 +70,13 @@ public class EmployeeService {
     }
 
 
-    public List<EmployeeDTO> getAllEmployees() {
+/*    public List<EmployeeDTO> getAllEmployees() {
 
         List<Employee> employees = employeeRepository.findAll();
         return employees
                 .stream()
                 .map(EmployeeDTO::from)
                 .collect(Collectors.toList());
-    }
+    }*/
 
 }
