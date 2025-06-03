@@ -6,13 +6,16 @@ import com.logonedigital.worktopia.user.User;
 import com.logonedigital.worktopia.user.UserService;
 import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
+@Slf4j
 public class EmployeeService {
 
     private final EmailService emailService;
@@ -44,11 +47,25 @@ public class EmployeeService {
         var savedUser = userService.save(relatedUser);
 
         var employeeToSave = EmployeeRequest.toEmployee(request);
+        log.info("data {}", employeeToSave);
+
         employeeToSave.setUser(savedUser);
 //        employeeToSave.setAvailability(Availability.ACTIF);
 
         var saved = employeeRepository.save(employeeToSave);
-        emailService.sendEmailToEmployee(saved.getEmail(),password);
+       // emailService.sendEmailToEmployee(saved.getEmail(),password);
+    }
+
+    public List<EmployeeDTO> getAll() {
+
+        List<Employee> trainingList = employeeRepository.findAll();
+//        trainingList.forEach(training -> Hibernate.initialize(training.getCategory()));
+//        trainingList.forEach(training -> Hibernate.initialize(training.getFormateur()));
+
+        return trainingList
+                .stream()
+                .map(EmployeeDTO::employeeDTO)
+                .toList();
     }
 
 
