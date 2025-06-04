@@ -1,11 +1,7 @@
 package com.logonedigital.worktopia.employe;
-import com.logonedigital.worktopia.formation.Formateur;
-import com.logonedigital.worktopia.formation.Training;
-import com.logonedigital.worktopia.formation.TrainingCategory;
 import lombok.Builder;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Builder
 public record EmployeeDTO(
@@ -27,7 +23,7 @@ public record EmployeeDTO(
 ) {
 
 
-    public static EmployeeDTO employeeDTO(Employee employee) {
+    public static EmployeeDTO from(Employee employee) {
 
         return EmployeeDTO.builder()
                 .firstName(employee.getFirstName())
@@ -45,6 +41,27 @@ public record EmployeeDTO(
                 .salairebrut(employee.getSalairebrut())
                 .iban(employee.getIban())
                 .availability(employee.getAvailability())
+                .build();
+    }
+
+    public static Employee toEmployee(EmployeeDTO dto) {
+
+        return Employee.builder()
+                .firstName(dto.firstName())
+                .lastName(dto.lastName())
+                .email(dto.email())
+                .position(dto.position())
+                .phone(dto.phone())
+                .address(dto.address())
+                .department(dto.department())
+                .gender(dto.gender())
+                .dateofbirth(dto.dateofbirth())
+                .manager(dto.manager())
+                .dateembauche(dto.dateembauche())
+                .typecontrat(dto.typecontrat())
+                .salairebrut(dto.salairebrut())
+                .iban(dto.iban())
+                .availability(dto.availability())
                 .build();
     }
 }

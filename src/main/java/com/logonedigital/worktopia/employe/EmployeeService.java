@@ -65,7 +65,7 @@ public class EmployeeService {
 
         return trainingList
                 .stream()
-                .map(EmployeeDTO::employeeDTO)
+                .map(EmployeeDTO::from)
                 .toList();
     }
 
