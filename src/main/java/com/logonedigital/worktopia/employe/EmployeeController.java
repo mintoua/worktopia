@@ -1,11 +1,14 @@
 package com.logonedigital.worktopia.employe;
 
 import com.logonedigital.worktopia.common.ApiResponse;
+import com.logonedigital.worktopia.formation.TrainingRequest;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 
 @RestController
@@ -36,5 +39,27 @@ public class EmployeeController {
                         employeeService.getAll()
                 )
         );
+    }
+
+    @GetMapping("/employee/{id}")
+    public ResponseEntity<EmployeeDTO> getById(@PathVariable long id){
+
+                        return ResponseEntity
+                                .status(200).
+                                body(
+                                        this.employeeService.getById(id)
+                                );
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> upd(Long id, EmployeeRequest employeeRequest){
+        this.employeeService.update(id, employeeRequest);
+        return ResponseEntity.status(202).body("Updated sucessfully");
+    }
+
+    @PutMapping("/delete/{id}")
+    public ResponseEntity<String> deletbyId(long id){
+        this.employeeService.delete(id);
+        return ResponseEntity.status(202).body("Updated sucessfully");
     }
 }

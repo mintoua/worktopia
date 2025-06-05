@@ -1,4 +1,5 @@
 package com.logonedigital.worktopia.formation;
+import com.logonedigital.worktopia.employe.Employee;
 import lombok.Builder;
 
 import java.util.Date;
