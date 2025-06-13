@@ -1,5 +1,6 @@
 package com.logonedigital.worktopia.formation;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.logonedigital.worktopia.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,11 +35,13 @@ public class Training extends BaseEntity {
     private boolean inscriptionOuverte;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @JsonIgnore
     @JoinColumn(name = "category_id")
     private TrainingCategory category;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     @JoinColumn(name = "formateur_id")
     private Formateur formateur;
 }

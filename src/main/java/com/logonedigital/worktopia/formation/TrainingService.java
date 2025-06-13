@@ -1,6 +1,8 @@
 package com.logonedigital.worktopia.formation;
 
 import com.logonedigital.worktopia.exception.RessourceExistException;
+import com.logonedigital.worktopia.exception.RessourceNonExistException;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +25,7 @@ public class TrainingService {
 
     public UUID save(TrainingRequest request){
         //Check if training already exists
-        if(trainingExists(request.title(), request.level())){
+       if(trainingExists(request.title(), request.level())){
             throw new RessourceExistException("Training already exists");
         }
 
@@ -53,7 +55,7 @@ public class TrainingService {
                         }
                 );
 
-        request.withCategory(trainingCategory, formateur);
+      request.withCategory(trainingCategory, formateur);
         Training trainingToSave = TrainingRequest.of(request);
         return this.trainingRepository.save(trainingToSave).getPublicId();
     }
@@ -66,9 +68,56 @@ public class TrainingService {
     public List<TrainingDTO> getAll() {
 
         List<Training> trainingList = trainingRepository.findAll();
+        trainingList.forEach(training -> Hibernate.initialize(training.getCategory()));
+        trainingList.forEach(training -> Hibernate.initialize(training.getFormateur()));
+
         return trainingList
                 .stream()
                 .map(TrainingDTO::trainingDTO)
                 .toList();
+    }
+
+
+    public TrainingDTO getById(Long id) {
+        Optional<Training> trainingOpt = trainingRepository.findById(id);
+        if (trainingOpt.isPresent()) {
+            return TrainingDTO.trainingDTO(trainingOpt.get());
+
+        } else {
+            throw new RessourceNonExistException("Training not found with id " + id);
+        }
+    }
+
+    public void delete(Long id) {
+        Training training = this.trainingRepository.findById(id)
+                .orElseThrow( ()->  new RessourceNonExistException("Training not found with id"));
+       this.trainingRepository.delete(training);
+    }
+
+    public TrainingDTO update(Long id, TrainingRequest trainingRequest) {
+        Optional<Training> optionalTraining = trainingRepository.findById(id);
+        if (optionalTraining.isPresent()) {
+            Training training = optionalTraining.get();
+            training.setTitle(trainingRequest.title());
+            training.setDescription(trainingRequest.description());
+            training.setDurationInDay(trainingRequest.durationInDay());
+            training.setDurationInHours(trainingRequest.durationInHours());
+            training.setLevel(trainingRequest.level());
+            training.setDateDebut(trainingRequest.dateDebut());
+            training.setLocation(trainingRequest.location());
+            training.setPeriode(trainingRequest.periode());
+            training.setNumberOfPlaces(trainingRequest.numberOfPlaces());
+            training.setFichierFacultatif(trainingRequest.fichierFacultatif());
+            training.setCoutFormation(trainingRequest.coutFormation());
+            training.setBudgetImpute(trainingRequest.budgetImpute());
+            training.setBudgetImpute(trainingRequest.budgetImpute());
+            training.setInscriptionOuverte(trainingRequest.inscriptionOuverte());
+            training.setCategory(trainingRequest.trainingCategory());
+            training.setFormateur(trainingRequest.formateur());
+            Training savedTraining = trainingRepository.saveAndFlush(training);
+            return TrainingDTO.trainingDTO(savedTraining);
+        } else {
+            throw new RessourceNonExistException("Training not found with id " + id);
+        }
     }
 }
