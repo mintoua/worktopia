@@ -33,7 +33,7 @@ public class PaySlipService {
 
         //Send Email
         //TODO : Implement email sending
-        emailService.sendEmailWithPaySlip(slipRequest.getEmployee().getEmail(),filePath);
+        emailService.sendEmailWithPaySlipAttached(slipRequest.getEmployee().getEmail(),filePath);
         return new PaySlipResponse(
                 filePath,
                 this.paySlipRepository.save(slip).getPublicId()

@@ -1,0 +1,11 @@
+//Applications de gestion de ressources humaines
+//Gestion des employés
+//Gestion des paies --> generation des bulletins de paie et envoi par email(gérer par admin)-> Employé
+//Gestion de congé --> Employe (il soumet une demande durée du conge, motif, etc.)
+//Gestion des formations --> l'admin qui ajoute ou propose les formations (nbr place, competences, durée, niveau)
+//Employe peut gere son profil (Profil) photo de profil, cv, etc.
+//Consulte ses infos, soumettre demande de conge, une vue sur les propositions de formation.(category des formations-)
+//Utilisateurs (Admin, Employe) ADMIN, EMPLOYE, RH
+//Admin gere tout ce qui est backoffice
+//STATUT des employees ACTIF ou CONGE
+//Calendrier des events

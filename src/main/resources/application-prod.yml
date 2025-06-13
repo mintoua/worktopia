@@ -15,16 +15,24 @@ spring:
     open-in-view: false
 
   mail:
-    host: localhost
-    port: 1025
+    host: smtp.gmail.com
+    port: 587 #465
+    username: worktopia60@gmail.com
+    password: kvaemeaezlctyhkn
     properties:
       mail:
         smtp:
-          trust: "*"
-        auth: false  # Disable auth unless you configured MailDev with credentials
+          auth: true
+          ssl:
+            enable: true
+            trust: "*"
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+        debug: true
         starttls:
-          enable: false  # MailDev usually doesn't support TLS in local dev
-
+          enable: true
+    protocol: smtp
 application:
   security:
     jwt:

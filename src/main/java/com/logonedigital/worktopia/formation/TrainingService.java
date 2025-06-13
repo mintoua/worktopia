@@ -4,7 +4,6 @@ import com.logonedigital.worktopia.exception.RessourceExistException;
 import com.logonedigital.worktopia.exception.RessourceNonExistException;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -71,9 +70,12 @@ public class TrainingService {
         trainingList.forEach(training -> Hibernate.initialize(training.getCategory()));
         trainingList.forEach(training -> Hibernate.initialize(training.getFormateur()));
 
+        trainingList.forEach(training -> Hibernate.initialize(training.getCategory()));
+        trainingList.forEach(training -> Hibernate.initialize(training.getFormateur()));
+
         return trainingList
                 .stream()
-                .map(TrainingDTO::trainingDTO)
+                .map(TrainingDTO::from)
                 .toList();
     }
 

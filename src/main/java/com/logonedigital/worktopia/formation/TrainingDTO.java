@@ -1,5 +1,9 @@
 package com.logonedigital.worktopia.formation;
+import com.logonedigital.worktopia.employe.Employee;
 import lombok.Builder;
+
+import java.util.Date;
+import java.util.UUID;
 
 import java.util.Date;
 import java.util.UUID;
@@ -29,6 +33,7 @@ public record TrainingDTO(
     public static TrainingDTO trainingDTO(Training training) {
 
         return TrainingDTO.builder()
+        .dbId(training.getDbId())
                 .title(training.getTitle())
                 .dbId(training.getDbId())
                 .description(training.getDescription())
@@ -46,6 +51,19 @@ public record TrainingDTO(
                 .inscriptionOuverte(training.isInscriptionOuverte())
                 .trainingCategory(training.getCategory())
                 .formateur(training.getFormateur())
+                .durationInDay(training.getDurationInDay())
+                .durationInHours(training.getDurationInHours())
+                .level(training.getLevel())
+                .dateDebut(training.getDateDebut())
+                .location(training.getLocation())
+                .periode(training.getPeriode())
+                .fichierFacultatif(training.getFichierFacultatif())
+                .coutFormation(training.getCoutFormation())
+                .budgetImpute(training.getBudgetImpute())
+                .inscriptionOuverte(training.isInscriptionOuverte())
+                .trainingCategory(training.getCategory())
+                .formateur(training.getFormateur())
                 .build();
     }
 }
+

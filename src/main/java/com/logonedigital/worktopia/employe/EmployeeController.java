@@ -4,11 +4,9 @@ import com.logonedigital.worktopia.common.ApiResponse;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -26,5 +24,40 @@ public class EmployeeController {
                 new ApiResponse(
                         "Saved successfully",
                          ""));
+    }
+
+
+
+    @GetMapping("/all")
+    public ResponseEntity<ApiResponse> getAll()
+    {
+        return ResponseEntity.ok(
+                new ApiResponse(
+                        "All Employees Found",
+                        employeeService.getAll()
+                )
+        );
+    }
+
+    @GetMapping("/employee/{id}")
+    public ResponseEntity<EmployeeDTO> getById(@PathVariable long id){
+
+                        return ResponseEntity
+                                .status(200).
+                                body(
+                                        this.employeeService.getById(id)
+                                );
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> upd(Long id, EmployeeRequest employeeRequest){
+        this.employeeService.update(id, employeeRequest);
+        return ResponseEntity.status(202).body("Updated successfully");
+    }
+
+    @PutMapping("/delete/{id}")
+    public ResponseEntity<String> deletbyId(long id){
+        this.employeeService.delete(id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Updated successfully");
     }
 }

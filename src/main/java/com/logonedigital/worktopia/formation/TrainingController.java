@@ -11,7 +11,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/trainings")
-@CrossOrigin(origins = "http://localhost:4029")
+@CrossOrigin(origins = "http://localhost:4200")
 public class TrainingController {
 
     private final TrainingService trainingService;
