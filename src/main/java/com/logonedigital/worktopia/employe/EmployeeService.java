@@ -56,14 +56,13 @@ public class EmployeeService {
         employeeToSave.setAvailability("ACTIF"); //statut par défaut
 
         var saved = employeeRepository.save(employeeToSave);
-       // emailService.sendEmailToEmployee(saved.getEmail(),password);
+       emailService.sendEmailToEmployee(saved.getEmail(),password);
     }
 
     public List<EmployeeDTO> getAll() {
 
         List<Employee> trainingList = employeeRepository.findAll();
-//        trainingList.forEach(training -> Hibernate.initialize(training.getCategory()));
-//        trainingList.forEach(training -> Hibernate.initialize(training.getFormateur()));
+
 
         return trainingList
                 .stream()
